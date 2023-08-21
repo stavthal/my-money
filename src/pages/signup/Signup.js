@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import styles from "./Signup.module.css";
 
+//Hook
+import { useSignup } from "../../hooks/useSignup";
+
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -9,13 +12,14 @@ export default function Signup() {
   const [displayName, setDisplayName] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorText, setPasswordErrorText] = useState("");
+  const { signup, isPending, error } = useSignup();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (password !== "") {
       if (password === confirmPassword) {
-        alert("Success!");
+        signup(email, password, displayName);
       } else {
         setPasswordErrorText("Passwords must match.");
         setPasswordError(true);
@@ -34,13 +38,6 @@ export default function Signup() {
     <div>
       <form onSubmit={handleSubmit} className={styles["signup-form"]}>
         <h2>Sign up</h2>
-        <span
-          className={`${styles.error} ${
-            passwordError ? styles["error-visible"] : styles["error-hidden"]
-          }`}
-        >
-          {passwordErrorText}
-        </span>
         <label>
           <span>Email:</span>
           <input
@@ -77,7 +74,20 @@ export default function Signup() {
             type="password"
           />
         </label>
-        <button className="btn">Sign up</button>
+        {!isPending && <button className="btn">Sign up</button>}
+        {isPending && (
+          <button className="btn" disabled>
+            Loading...
+          </button>
+        )}
+        {error && <p className={styles.error}>{error}</p>}
+        <span
+          className={`${styles.error} ${
+            passwordError ? styles["error-visible"] : styles["error-hidden"]
+          }`}
+        >
+          {passwordErrorText}
+        </span>
       </form>
     </div>
   );
