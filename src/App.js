@@ -1,4 +1,7 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+
+//Hooks
+import { useAuthContext } from "./hooks/useAuthContext";
 
 //Components
 import Home from "./pages/home/Home";
@@ -7,18 +10,28 @@ import Signup from "./pages/signup/Signup";
 import Navbar from "./components/Navbar/Navbar";
 
 function App() {
+  const { authIsReady, user } = useAuthContext();
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="*" component={() => <h1>Error 404.Not found</h1>} />
-        </Switch>
-      </BrowserRouter>
-    </div>
+    authIsReady && (
+      <div className="App">
+        <BrowserRouter>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Home}>
+              {!user && <Redirect to="/login" />}
+            </Route>
+            <Route path="/login" component={Login}>
+              {user && <Redirect to="/" />}
+            </Route>
+            <Route path="/signup" component={Signup}>
+              {user && <Redirect to="/" />}
+            </Route>
+            <Route path="*" component={() => <h1>Error 404.Not found</h1>} />
+          </Switch>
+        </BrowserRouter>
+      </div>
+    )
   );
 }
 

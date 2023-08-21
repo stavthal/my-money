@@ -30,3 +30,9 @@
   outline: none;
   color: #53d442;
 }
+
+.error {
+  color: red !important;
+  font-size: 12px !important;
+  margin-top: 8px;
+}

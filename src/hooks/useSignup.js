@@ -3,7 +3,7 @@ import { projectAuth } from "../firebase/Config";
 import { useAuthContext } from "./useAuthContext";
 
 export const useSignup = () => {
-  const [isCancelled, setCancelled] = useState(true);
+  const [isCancelled, setCancelled] = useState(false);
   const [error, setError] = useState(null);
   const [isPending, setPending] = useState(false);
 
