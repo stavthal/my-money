@@ -25,9 +25,9 @@
 
 .signup-form input:focus,
 .singup-form input:active {
-  border: 1px solid #53d442;
+  border: 1px solid #febbcc;
   outline: none;
-  color: #53d442;
+  color: #febbcc;
 }
 
 .error {
