@@ -38,7 +38,7 @@ export default function TransactionForm({ uid }) {
           />
         </label>
         <label>
-          <span>Amount:</span>
+          <span>Amount (€):</span>
           <input
             type="number"
             value={amount}

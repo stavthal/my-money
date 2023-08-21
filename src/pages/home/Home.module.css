@@ -95,6 +95,16 @@
   cursor: pointer;
 }
 
+.transactions .confirmation {
+  color: red;
+  position: absolute;
+  top: 0;
+  right: 2.2rem;
+  font-size: 0.75em;
+}
+
+/* Loading */
+
 .loading {
   text-align: center;
   font-size: 1.6em;
